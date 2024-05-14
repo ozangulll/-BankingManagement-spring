@@ -1,4 +1,70 @@
 package com.sau.bankingmanagementgradle.controllers;
-
+@Controller
 public class CustomerController {
+    private final CustomerRepository customerRepository;
+
+    @Autowired
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    @GetMapping ("/customers")
+    public String listCustomers(Model model){
+        List<Customer> customers = customerRepository.findAll();
+        model.addAttribute("customers", customers);
+        return "/customer/customers-list";
+
+    }
+    //SAVE CUSTOMER
+    //Update Customer
+    //DeleteCustomer
+    @GetMapping ("customers/add")
+    public String addCustomerForm(Model model){
+        Customer customer=new Customer();
+        model.addAttribute("customer",customer);
+        return "/customer/create-customer";
+    }
+    @PostMapping("customers/add")
+    public String addCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            return "/customer/create-customer";
+        }
+        if(customerRepository.existsById(customer.getId())){
+            model.addAttribute("errorMessage","A customer with this ID already exists!");
+        }
+        customerRepository.save(customer);
+        return "redirect:/customers";
+    }
+    @GetMapping("customers/update/{id}")
+    public String updateCustomerForm(@PathVariable("id") int id,Model model){
+        Optional<Customer> customer=customerRepository.findById(id);
+        model.addAttribute("customer",customer);
+        return "/customer/update-customer";
+    }
+    @PostMapping("customers/update/{id}")
+    public  String updateCustomer(@ModelAttribute("customer") @Valid Customer customer,BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/customer/update-customer";
+        }
+        customerRepository.save(customer);
+        return "redirect:/customers";
+    }
+    @GetMapping("customers/delete/{id}")
+    public String deleteCustomerForm(@PathVariable("id") int id, Model model){
+        Optional<Customer> customer = customerRepository.findById(id);
+        model.addAttribute("customer", customer);
+        return "/customer/delete-screen-customer";
+    }
+    @PostMapping("customers/delete/{id}")
+    public String deleteCustomer(@PathVariable("id") int id){
+        customerRepository.deleteById(id);
+        return "redirect:/customers";
+    }
+    @GetMapping("/customers/search")
+    public String searchName(@RequestParam(value = "query") String query, Model model) {
+        List<Customer> customers = customerRepository.searchName(query);
+        model.addAttribute("customers", customers);
+        return "/customer/customers-list";
+    }
+
 }
