@@ -1,4 +1,17 @@
 package com.sau.bankingmanagementgradle.controllers;
+
+import com.sau.bankingmanagementgradle.models.Account;
+import com.sau.bankingmanagementgradle.repositories.AccountRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 public class AccountController {
     private AccountRepository accountRepository;
@@ -25,7 +38,7 @@ public class AccountController {
         return "/account/create-account";
     }
     @PostMapping("/accounts/add")
-    public String AddAccount(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult,Model model){
+    public String AddAccount(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "/account/create-account";
         }
