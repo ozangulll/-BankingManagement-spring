@@ -29,18 +29,28 @@ public class AuthController {
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") RegistrationDto user,
                                BindingResult bindingResult, Model model) {
-        UserEntity existingUser = userService.findByEmail(user.getEmail());
-        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-            bindingResult.rejectValue("email", "There is already an account with this email");
+        UserEntity existingUserByEmail = userService.findByEmail(user.getEmail());
+        if (existingUserByEmail != null) {
+            bindingResult.rejectValue("email", "error.user", "There is already an account registered with this email.");
         }
-        UserEntity existingUser2 = userService.findByUsername(user.getUsername());
-        if (existingUser2 != null && existingUser2.getUsername() != null && !existingUser2.getUsername().isEmpty()) {
-            bindingResult.rejectValue("email", "There is already an user with this email");
+        if (!user.isPasswordMatch()) {
+            bindingResult.rejectValue("rePassword", "error.user", "Passwords don't match");
+        }
+        UserEntity existingUserByUsername = userService.findByUsername(user.getUsername());
+        if (existingUserByUsername != null) {
+            bindingResult.rejectValue("username", "error.user", "There is already a user registered with this username.");
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
+            return "auth/register";
         }
         userService.saveUser(user);
         return "redirect:/?success";
     }
+    @GetMapping("/login")
+    public String loginPage(Model model) {
+        return "auth/login";
+    }
+
+
 }
