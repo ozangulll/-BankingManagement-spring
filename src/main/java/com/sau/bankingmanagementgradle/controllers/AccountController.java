@@ -2,8 +2,13 @@ package com.sau.bankingmanagementgradle.controllers;
 
 import com.sau.bankingmanagementgradle.models.Account;
 import com.sau.bankingmanagementgradle.repositories.AccountRepository;
+import com.sau.bankingmanagementgradle.servicesForUser.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +20,21 @@ import java.util.Optional;
 @Controller
 public class AccountController {
     private AccountRepository accountRepository;
+    private UserService userService;
+
     @GetMapping("/")
-    public String showHomePage() {
+    public String showHomePage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isAuthenticated", false);
+            model.addAttribute("username", "User");
+        } else {
+            String username = authentication.getName();
+            model.addAttribute("isAuthenticated", true);
+            model.addAttribute("username", username);
+        }
+
         return "header";
     }
     @Autowired
@@ -24,13 +42,24 @@ public class AccountController {
         this.accountRepository = accountRepository;
     }
     @GetMapping("/accounts")
-    public String listAccounts(Model model){
-        List<Account> accounts=accountRepository.findAll();
-        model.addAttribute("accounts",accounts);
+    public String listAccounts(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        List<Account> accounts = accountRepository.findAll();
+        model.addAttribute("accounts", accounts);
+
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("admin"));
+
+        model.addAttribute("isAdmin", isAdmin);
+
+        // Debugging: Log isAdmin value
+        System.out.println("isAdmin: " + isAdmin);
+
         return "/account/accounts-list";
-        //we use th:each for foreach loop in thymeleaf for instance th:each="account :${accounts}"
-        //the second one ACCOUNTS aslında bizi burada eklediğimiz addattribute'a denk gelmiş oluyor.
     }
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("/accounts/add")
     public String AddAccountForm(Model model){
         Account account=new Account();

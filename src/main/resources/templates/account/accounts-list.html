@@ -29,7 +29,9 @@
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">#</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">Branch</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">Balance</th>
-                            <th class=" bg-gray-100 px-3 py-3.5 text-black">Action</th>
+                              <th:block th:if="${isAdmin}">
+                              <th class=" bg-gray-100 px-3 py-3.5 text-black">Action</th>
+                              </th:block>
                           </tr>
                         </thead>
                         <tbody>
@@ -37,7 +39,8 @@
                             <td class=" text-center  px-3 py-4 text-black" th:text="${account.id}"></td>
                             <td class=" text-center px-3 py-4 text-black" th:text="${account.branch}" ></td>
                             <td class=" text-center px-3 py-4 text-black" th:text="${account.balance}"></td>
-                            <td class=" px-3 py-4 flex items-center justify-between">
+                              <th:block th:if="${isAdmin}">
+                              <td class=" px-3 py-4 flex items-center justify-between">
                                 <form th:action="@{'/accounts/update/' + ${account.id}}" method="get">
                                 <a>
                                     <button type='submit'  class="bg-blue-600 capitalize rounded-md px-2 py-1 hover:bg-blue-700">
@@ -63,6 +66,7 @@
                                     </button>
                               </form>
                             </td>
+                              </th:block>
                           </tr>  
 
                           

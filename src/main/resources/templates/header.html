@@ -231,7 +231,7 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                     <button @click="countryShow = !countryShow"
                             class="inline-flex items-center py-2 px-6 bg-white-600 hover:bg-opacity-95 text-black rounded-md shadow"
                             style="font-weight: bold;">
-                        User
+                        <span th:text="${username}">User</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                              stroke="currentColor" class="w-4 h-4 ml-2 transition-al"
                              :class="{'-rotate-90':countryShow}">
@@ -240,20 +240,20 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                     </button>
                     <div x-show="countryShow">
                         <ul @click.outside="open = false" x-transition
-                            class="absolute bg-white-600  w-160px shadow-md py-1 rounded-lg mt-2">
-                            <li>
+                            class="absolute bg-white-600 w-160px shadow-md py-1 rounded-lg mt-2">
+                            <li th:if="${!isAuthenticated}">
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/register" style="font-weight: bold;">
-                                   Register
+                                    Register
                                 </a>
                             </li>
-                            <li>
+                            <li th:if="${!isAuthenticated}">
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/login" style="font-weight: bold;">
                                     Log in
                                 </a>
                             </li>
-                            <li>
+                            <li th:if="${isAuthenticated}">
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/logout" style="font-weight: bold;">
                                     Log out
