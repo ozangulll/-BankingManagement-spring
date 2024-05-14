@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class WithdrawalView {
+public class WithdrawalDto {
 
     private int id;
     private int customerId;
