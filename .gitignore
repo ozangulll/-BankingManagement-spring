@@ -1,5 +1,5 @@
 # Ignore app.properties file
-app.properties
+application.properties
 
 # Ignore HELP.md file
 HELP.md
