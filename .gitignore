@@ -1,10 +1,25 @@
+# Ignore app.properties file
+app.properties
+
+# Ignore HELP.md file
 HELP.md
-.gradle
+
+# Ignore directories
+.gradle/
 build/
+bin/
+out/
+
+# Exclude specific files from ignored directories
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-src/main/resources/application.properties
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# IDE specific ignore
 ### STS ###
 .apt_generated
 .classpath
@@ -13,18 +28,12 @@ src/main/resources/application.properties
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
 ### NetBeans ###
 /nbproject/private/
