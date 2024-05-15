@@ -5,6 +5,7 @@ import com.sau.bankingmanagementgradle.repositories.CustomerRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +24,13 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public String listCustomers(Model model){
+    public String listCustomers(Model model,Authentication authentication ){
         List<Customer> customers = customerRepository.findAll();
         model.addAttribute("customers", customers);
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_admin"));
+
+        model.addAttribute("isAdmin", isAdmin);
         return "/customer/customers-list";
 
     }

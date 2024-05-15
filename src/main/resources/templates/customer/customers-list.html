@@ -27,7 +27,9 @@
                             <th class=" bg-gray-100 px-3 py-3.5 text-black"> Name</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">Adress</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">City</th>
+                              <th:block th:if="${isAdmin}">
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">Action</th>
+                              </th:block>
                           </tr>
                         </thead>
                         <tbody>
@@ -36,7 +38,7 @@
                             <td class=" text-center px-3 py-4 text-black"  th:text="${customer.name}"></td>
                             <td class=" text-center px-3 py-4 text-black"  th:text="${customer.address}"></td>
                             <td class=" text-center px-3 py-4 text-black"  th:text="${customer.city}"></td>
-                           
+                              <th:block th:if="${isAdmin}">
                             <td class=" px-3 py-4 flex items-center justify-between">
                                 <form th:action="@{'/customers/update/' + ${customer.id}}" method="get">
                                     <a>
@@ -64,6 +66,7 @@
                                 </form>
 
                             </td>
+                              </th:block>
                           </tr>
                         </tbody>
                     </table>

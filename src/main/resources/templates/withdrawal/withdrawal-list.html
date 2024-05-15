@@ -34,7 +34,9 @@
                         <th class=" bg-gray-100 px-3 py-3.5 text-black">Date</th>
                         <th class=" bg-gray-100 px-3 py-3.5 text-black"> Updated Date</th>
                         <th class=" bg-gray-100 px-3 py-3.5 text-black">Amount</th>
+                        <th:block th:if="${isAdmin}">
                         <th class=" bg-gray-100 px-3 py-3.5 text-black">Action</th>
+                        </th:block>
                     </tr>
                     </thead>                        <tbody>
                 <tr class="border-b-2 border-gray-100" th:each="withdrawal:${withdrawals}">
@@ -46,6 +48,7 @@
                     <td class=" text-center px-3 py-4 text-black" th:text="${withdrawal.date}"></td>
                     <td class=" text-center px-3 py-4 text-black" th:text="${withdrawal.updatedDate}"></td>
                     <td class=" text-center px-3 py-4 text-black" th:text="${withdrawal.amount}"></td>
+                    <th:block th:if="${isAdmin}">
                     <td class=" px-3 py-4 flex items-center justify-between">
                         <form th:action="@{'/withdrawals/update/' + ${withdrawal.id}}" method="get">
                             <a>
@@ -64,6 +67,7 @@
                             </button>
                         </form>
                     </td>
+                        </th:block>
                 </tr>
 
 

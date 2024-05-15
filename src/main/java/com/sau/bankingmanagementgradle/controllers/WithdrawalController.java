@@ -8,6 +8,7 @@ import com.sau.bankingmanagementgradle.repositories.CustomerRepository;
 import com.sau.bankingmanagementgradle.repositories.WithdrawalRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,9 +33,13 @@ public class WithdrawalController {
     }
     //DisplayALLWithdrawals
     @GetMapping("withdrawals")
-    public String getAllWithdrawals(Model model){
+    public String getAllWithdrawals(Model model, Authentication authentication){
         List<Withdrawal> withdrawals=withdrawalRepository.findAll();
         model.addAttribute("withdrawals",withdrawals);
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_admin"));
+
+        model.addAttribute("isAdmin", isAdmin);
         return "/withdrawal/withdrawal-list";
     }
     @GetMapping("withdrawals/customer/{customerid}")

@@ -15,8 +15,9 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
 
     <style>
         body {
-            background-image: url('https://img.freepik.com/free-photo/woman-using-mobile-phone-shopping-online-pay-by-credit-ca_1421-102.jpg?w=996&t=st=1714909471~exp=1714910071~hmac=e0e4d4e5a2da58066290b68b842bfe2da97c8e9cf3ad682233b396716a3014ca');
-            background-size: cover
+            background-image: url('https://www.itcinfotech.com/wp-content/uploads/2020/07/Challenger-Banks-are-Disrupting-the-Banking-Industry-inner.jpg');
+            background-size: cover; /* Resmi sayfayı kaplayacak şekilde boyutlandır */
+            background-position: center; /* Resmi sayfanın ortasına hizala */
         }
         .container-fluid
         {
@@ -66,15 +67,18 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                             </svg>
 
                         </button>
+
                         <div x-show="countryShow">
                             <ul @click.outside="open = false" x-transition
                                 class="absolute bg-white-600  w-160px shadow-md py-1 rounded-lg mt-2">
-                                <li>
-                                    <a class="py-1 px-2 text-white hover:bg-blue-700 flex items-center"
-                                       href="" style="font-weight: bold;">
-                                        Create Account
-                                    </a>
-                                </li>
+                                <th:block th:if="${isAdmin}">
+                                    <li>
+                                        <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
+                                           href="account/create-account.html" style="font-weight: bold;">
+                                            Create Account
+                                        </a>
+                                    </li>
+                                </th:block>
                                 <li>
                                     <a class="py-1 px-2 text-black hover:bg-blue-700 flex items-center" href="" style="font-weight: bold;">
                                         Accounts
@@ -83,6 +87,7 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                             </ul>
                         </div>
                     </div>
+
                 </li>
                 <li>
                     <div x-data="{countryShow:false}" class="mb-4 z-10">
@@ -100,12 +105,14 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                         <div x-show="countryShow">
                             <ul @click.outside="open = false" x-transition
                                 class="absolute bg-white-600  w-160px shadow-md py-1 rounded-lg mt-2">
+                                <th:block th:if="${isAdmin}">
                                 <li>
                                     <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                        href="customer/create-customer.html" style="font-weight: bold;">
                                         Create Customer
                                     </a>
                                 </li>
+                                </th:block>
                                 <li>
                                     <a class="py-1 px-2 text-black hover:bg-blue-700 flex items-center" href="" style="font-weight: bold;">
                                         Customers
@@ -150,12 +157,14 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                     <div x-show="countryShow">
                         <ul @click.outside="open = false" x-transition
                             class="absolute bg-white-600  w-160px shadow-md py-1 rounded-lg mt-2">
+                            <th:block th:if="${isAdmin}">
                             <li>
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/accounts/add" style="font-weight: bold;">
                                     Create Account
                                 </a>
                             </li>
+                            </th:block>
                             <li>
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/accounts" style="font-weight: bold;">
@@ -180,12 +189,14 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                     <div x-show="countryShow">
                         <ul @click.outside="open = false" x-transition
                             class="absolute bg-white-600  w-160px shadow-md py-1 rounded-lg mt-2">
+                            <th:block th:if="${isAdmin}">
                             <li>
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/customers/add" style="font-weight: bold;">
                                     Create Customer
                                 </a>
                             </li>
+                            </th:block>
                             <li>
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/customers" style="font-weight: bold;">
@@ -211,12 +222,14 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                     <div x-show="countryShow">
                         <ul @click.outside="open = false" x-transition
                             class="absolute bg-white-600  w-160px shadow-md py-1 rounded-lg mt-2">
+                            <th:block th:if="${isAdmin}">
                             <li>
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/withdrawals/add" style="font-weight: bold;">
                                      Withdraw money
                                 </a>
                             </li>
+                            </th:block>
                             <li>
                                 <a class="py-1 px-2 text-black hover:bg-white-700 flex items-center"
                                    href="/withdrawals" style="font-weight: bold;">

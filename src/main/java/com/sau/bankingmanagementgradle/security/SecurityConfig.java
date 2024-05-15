@@ -36,7 +36,6 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/"),
                                 new AntPathRequestMatcher("/register")
                         ).permitAll()
-                        .requestMatchers("/withdrawals").hasRole("admin")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

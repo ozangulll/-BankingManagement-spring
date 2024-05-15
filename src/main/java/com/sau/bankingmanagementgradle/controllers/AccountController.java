@@ -34,6 +34,10 @@ public class AccountController {
             model.addAttribute("isAuthenticated", true);
             model.addAttribute("username", username);
         }
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_admin"));
+
+        model.addAttribute("isAdmin", isAdmin);
 
         return "header";
     }
@@ -43,27 +47,25 @@ public class AccountController {
     }
     @GetMapping("/accounts")
     public String listAccounts(Model model, Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/login";
-        }
         List<Account> accounts = accountRepository.findAll();
         model.addAttribute("accounts", accounts);
 
         boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("admin"));
+                .anyMatch(role -> role.getAuthority().equals("ROLE_admin"));
 
         model.addAttribute("isAdmin", isAdmin);
-
-        // Debugging: Log isAdmin value
-        System.out.println("isAdmin: " + isAdmin);
 
         return "/account/accounts-list";
     }
     @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("/accounts/add")
-    public String AddAccountForm(Model model){
+    public String AddAccountForm(Model model,Authentication authentication){
         Account account=new Account();
         model.addAttribute("account",account);
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_admin"));
+
+        model.addAttribute("isAdmin", isAdmin);
         return "/account/create-account";
     }
     @PreAuthorize("hasRole('ROLE_admin')")
