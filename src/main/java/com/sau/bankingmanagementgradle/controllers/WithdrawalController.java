@@ -7,6 +7,7 @@ import com.sau.bankingmanagementgradle.repositories.AccountRepository;
 import com.sau.bankingmanagementgradle.repositories.CustomerRepository;
 import com.sau.bankingmanagementgradle.repositories.WithdrawalRepository;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,6 +62,7 @@ public class WithdrawalController {
             return "account-not-found"; // Example: return a view indicating account not found
         }
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("withdrawals/add")
     public String AddFormWithdrawal(Model model){
         List<Account> accounts=accountRepository.findAll();
@@ -72,7 +74,7 @@ public class WithdrawalController {
         return "/withdrawal/create-withdrawal";
 
     }
-
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("withdrawals/add")
     public String addWithdrawal(@Valid @ModelAttribute("withdrawal") Withdrawal withdrawal, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -105,7 +107,7 @@ public class WithdrawalController {
         return "redirect:/withdrawals";
     }
 
-
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("/withdrawals/update/{id}")
     public String updateWithdrawalForm(@PathVariable("id") int id, Model model) {
         Optional<Withdrawal> optionalWithdrawal = withdrawalRepository.findById(id);
@@ -122,7 +124,7 @@ public class WithdrawalController {
             return "redirect:/withdrawals";
         }
     }
-
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("/withdrawals/update/{id}")
     public String updateWithdrawal(@PathVariable("id") int id, @ModelAttribute("withdrawal") @Valid Withdrawal withdrawal, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -164,13 +166,14 @@ public class WithdrawalController {
         model.addAttribute("withdrawals", withdrawals);
         return "/withdrawal/withdrawal-list";
     }
-
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("withdrawals/delete/{id}")
     public String deleteWithdrawalForm(@PathVariable("id") int id, Model model){
         Optional<Withdrawal> withdrawal = withdrawalRepository.findById(id);
         model.addAttribute("withdrawal", withdrawal);
         return "/withdrawal/delete-screen-withdrawal";
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("withdrawals/delete/{id}")
     public String deleteWithdrawal(@PathVariable("id") int id){
         withdrawalRepository.deleteById(id);

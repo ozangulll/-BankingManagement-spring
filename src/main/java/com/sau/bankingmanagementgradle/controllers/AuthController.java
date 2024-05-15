@@ -51,6 +51,9 @@ public class AuthController {
     public String loginPage(Model model) {
         return "auth/login";
     }
-
+    @GetMapping("/access-denied")
+    public String accessDenied(){
+        return "auth/access-denied";
+    }
 
 }

@@ -59,13 +59,14 @@ public class AccountController {
 
         return "/account/accounts-list";
     }
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("/accounts/add")
     public String AddAccountForm(Model model){
         Account account=new Account();
         model.addAttribute("account",account);
         return "/account/create-account";
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("/accounts/add")
     public String AddAccount(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
@@ -78,12 +79,14 @@ public class AccountController {
         accountRepository.save(account);
         return "redirect:/accounts";
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("/accounts/delete/{id}")
     public String DeleteAccountScreen(@PathVariable("id") int id, Model model){
         Optional<Account> account = accountRepository.findById(id);
         model.addAttribute("account", account);
         return "/account/delete-screen-account";
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("/accounts/delete/{id}")
     public String deleteAccount(@PathVariable("id") int id){
         accountRepository.deleteById(id);
@@ -95,12 +98,14 @@ public class AccountController {
         model.addAttribute("accounts", accounts);
         return "/account/accounts-list";
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("accounts/update/{id}")
     public  String UpdateAccountForm( @PathVariable("id") int id, Model model){
         Optional<Account> account=accountRepository.findById(id);
         model.addAttribute("account",account);
         return "/account/update-account";
     }
+    @PreAuthorize("hasRole('ROLE_admin')")
     @PostMapping("accounts/update/{id}")
     public  String UpdateAccount(@ModelAttribute("account")  @Valid Account account, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
