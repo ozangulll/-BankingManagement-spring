@@ -52,7 +52,7 @@
         <td th:text="${user.username}">Username</td>
         <td th:text="${user.email}">Email</td>
         <td>
-            <span th:each="role : ${user.roles}" th:text="${role.name}">Role</span>
+            <span th:each="role, iterStat : ${user.roles}" th:text="${role.name} + ' '"></span>
         </td>
         <td class="actions">
             <!-- Güncelleme butonu -->
