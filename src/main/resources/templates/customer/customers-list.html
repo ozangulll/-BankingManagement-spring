@@ -23,6 +23,7 @@
                     <table class="table-fixed  min-w-full text-white border rounded-lg shadow-sm">
                         <thead>
                           <tr class="border-b-2 border-gray-100">
+                              <th class=" bg-gray-100 px-3 py-3.5 text-black">Photo</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">#</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black"> Name</th>
                             <th class=" bg-gray-100 px-3 py-3.5 text-black">Adress</th>
@@ -34,6 +35,7 @@
                         </thead>
                         <tbody>
                           <tr class="border-b-2 border-gray-100" th:each="customer:${customers}">
+                              <td class=" text-center  px-3 py-4 text-black"><img style="width: 1.5cm;" th:src="@{'/images/' + ${customer.photoUrl}}"/></td>
                             <td class=" text-center  px-3 py-4 text-black" th:text="${customer.id}"></td>
                             <td class=" text-center px-3 py-4 text-black"  th:text="${customer.name}"></td>
                             <td class=" text-center px-3 py-4 text-black"  th:text="${customer.address}"></td>

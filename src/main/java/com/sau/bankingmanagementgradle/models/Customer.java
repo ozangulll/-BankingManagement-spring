@@ -23,6 +23,8 @@ public class Customer {
     @NotNull(message = "Id should not be null")
     @Min(value=1, message = "Id should be bigger than 0")
     private int id;
+    @Column(name="photoUrl")
+    private String photoUrl;
     @Column(name="customerName",length = 16)
     @Length(max = 16,message = "Name length should not exceed 16 characters!")
     @NotEmpty(message = "Name should not be empty.")
