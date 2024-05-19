@@ -52,7 +52,12 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                        style="font-weight: bold;">
                         Home
                     </a>
-
+                    <th:block th:if="${isAdmin}">
+                    <a class="py-1 px-2 flex hover:bg-blue-700 text-center text-white" href=""
+                       style="font-weight: bold;">
+                        Userlist
+                    </a>
+                    </th:block>
                     <div x-data="{countryShow:false}" class="mb-4">
                         <!--false yerine true yapsaydık üst toggle menusu açık olarak gelecekti-->
                         <button @click="countryShow = !countryShow"
@@ -141,7 +146,14 @@ xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
                         Home
                     </a>
                 </div>
-
+                <th:block th:if="${isAdmin}">
+                <div x-data="{countryShow:false}" class="mb-4">
+                    <!--false yerine true yapsaydık üst toggle menusu açık olarak gelecekti-->
+                    <a href="/admin/users" class="inline-flex items-center py-2 px-6 bg-white-600 hover:bg-opacity-95 text-black rounded-md shadow" style="font-weight: bold;">
+                        Userlist
+                    </a>
+                </div>
+                </th:block>
                 <div x-data="{countryShow:false}" class="mb-4">
                     <!--false yerine true yapsaydık üst toggle menusu açık olarak gelecekti-->
                     <button @click="countryShow = !countryShow"
