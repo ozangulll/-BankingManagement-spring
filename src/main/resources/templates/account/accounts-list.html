@@ -13,6 +13,12 @@
      <header class=" py-6 pl-5 pr-5 lg:py-12 bg-white uppercase rounded-lg shadow-lg">
         <div class="">
             <div>
+                <a href="/"
+                   class="w-1/2 px-6 py-3 mt-3 text-lg text-center text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none">Go Back</a>
+                <th:block th:if="${isAdmin}">
+                <a href="accounts/add"
+                   class="w-1/2 px-6 py-3 mt-3 text-lg text-center text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none">Add Account</a>
+                </th:block>
                 <form th:action="@{/accounts/search}" class="flex items-center justify-center mt-6" method="GET">
                     <label for="query" class="mr-2 text-gray-700"></label>
                     <input style="width: 60%" name="query" id="query" class="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" type="search" placeholder="Search account with branch name..." aria-label="Search">

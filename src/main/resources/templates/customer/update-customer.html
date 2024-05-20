@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{header}">
+      layout:decorate="~{header}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
         .text-danger {
             color: red;
         }
+
         .-z-1 {
             z-index: -1;
         }
@@ -31,105 +33,108 @@
             --tw-rotate: 0;
             --tw-skew-x: 0;
             --tw-skew-y: 0;
-            transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
-            skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+            transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
             --tw-scale-x: 0.75;
             --tw-scale-y: 0.75;
             --tw-translate-y: -1.5rem;
-        }zzz
+        }
 
-         input:focus ~ label,
-         select:focus ~ label {
-             /* @apply text-black; left-0; */
-             --tw-text-opacity: 1;
-             color: rgba(0, 0, 0, var(--tw-text-opacity));
-             left: 0px;
-         }
+        input:focus ~ label,
+        select:focus ~ label {
+            /* @apply text-black; left-0; */
+            --tw-text-opacity: 1;
+            color: rgba(0, 0, 0, var(--tw-text-opacity));
+            left: 0px;
+        }
     </style>
-
 </head>
 <body layout:fragment="body">
 
-      <div class="min-h-screen bg-gray-100 p-0 sm:p-12">
-        <div class="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
-          <h1 class="text-2xl font-bold mb-8">Update Customer</h1>
-    
-          <form  method="post" role="form" th:action="@{/customers/update/{id}}" th:object="${customer}">
-          <input type="hidden" name="">
 
-          <div class="relative z-0 w-full mb-5">
-            <input
-              type="number"
-              id="inputId"
-              placeholder=""
-              name="id"
-              th:field="*{id}"
-              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            />
-            <label for="inputId" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">id</label>
-              <p th:if="${#fields.hasErrors('id')}" class="text-danger" th:errors="*{id}"></p>
-          </div>
+<div class="min-h-screen bg-gray-100 p-0 sm:p-12">
+    <div class="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
+        <h1 class="text-2xl font-bold mb-8">Update Customer</h1>
+
+        <form th:action="@{/customers/update/{id}(id=${customer.id})}" th:object="${customer}" class="" method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" name=''>
 
             <div class="relative z-0 w-full mb-5">
-              <input
-                type="text"
-                id="inputName"
-                placeholder=""
-                name="name"
-                th:field="*{name}"
-                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-              />
-              <label for="inputName" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">customer name</label>
-                <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                <input
+                        type="number"
+                        id="inputId"
+                        th:field="*{id}"
+                        placeholder=""
+                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+                />
+                <label for="inputId" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">id</label>
             </div>
-    
-         
-            <div class="relative z-0 w-full mb-5">
-              <input
-                type="text"
-                id="inputAddress"
-                placeholder=""
-                name="address"
-                th:field="*{address}"
-                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-              />
-              <label for="inputAddress" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">address</label>
-                <p th:if="${#fields.hasErrors('address')}" class="text-danger" th:errors="*{address}"></p>
-            </div>
-    
-            <div class="relative z-0 w-full mb-5">
-              <input
-                type="text"
-                id="inputCity"
-                placeholder=""
-                name="city"
-                th:field="*{city}"
-                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-              />
-              <label for="inputCity" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">city</label>
-                <p th:if="${#fields.hasErrors('city')}" class="text-danger" th:errors="*{city}"></p>
-            </div>
-              <div class="relative z-0 w-full mb-5">
-                  <input
-                          type="file"
-                          id="inputPhoto"
-                          name="file"
-                          accept="image/png, image/jpeg"
-                          placeholder=""
-                          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-                          th:field="*{photoUrl}"
 
-                  />
-                  <label for="inputPhoto" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">upload photo</label>
-                  <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
-              </div>
-                    <div class="flex justify-between">
-                        <button type="submit" class="w-1/2 px-6 py-3 mt-3 mr-2 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none">Save</button>
-                        <a href="/customers" class="w-1/2 px-6 py-3 mt-3 text-lg text-center text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none">Cancel</a>
-                    </div>
-          </form>
-        </div>
-      </div>
+            <div class="relative z-0 w-full mb-5">
+                <input
+                        type="text"
+                        id="inputName"
+                        th:field="*{name}"
+                        placeholder=""
+                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+                />
+                <label for="inputName" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">customer
+                    name</label>
+            </div>
+
+
+            <div class="relative z-0 w-full mb-5">
+                <input
+                        type="text"
+                        id="inputAddress"
+                        th:field="*{address}"
+                        placeholder=""
+                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+                />
+                <label for="inputAddress"
+                       class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">address</label>
+
+            </div>
+
+            <div class="relative z-0 w-full mb-5">
+                <input
+                        type="text"
+                        id="inputCity"
+                        th:field="*{city}"
+                        placeholder=""
+                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+                />
+                <label for="inputCity" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">city</label>
+
+            </div>
+            <div class="relative z-0 w-full mb-5">
+                <input
+                        type="file"
+                        id="inputPhoto"
+                        name="file"
+                        accept="image/png, image/jpeg"
+
+                        placeholder=""
+                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+
+                />
+                <label for="inputPhoto" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">upload
+                    photo</label>
+                <!--<input type="photo" name="image" accept="image/png, image/jpeg" > -->
+            </div>
+
+            <div class="flex justify-between">
+                <button type="submit"
+                        class="w-1/2 px-6 py-3 mt-3 mr-2 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none">
+                    Create
+                </button>
+                <a href="/"
+                   class="w-1/2 px-6 py-3 mt-3 text-lg text-center text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
 </body>
 </html>
 

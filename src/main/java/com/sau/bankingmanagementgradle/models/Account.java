@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "account")
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "Id should not be null")
     @Min(value = 1, message = "Id should be bigger than 0")
     private int id;
